@@ -31,7 +31,7 @@
             txtElsoAdat = new TextBox();
             label1 = new Label();
             btnOsszeadas = new Button();
-            txtmasodikAdat = new TextBox();
+            txtMasodikAdat = new TextBox();
             label2 = new Label();
             label3 = new Label();
             btnKivonas = new Button();
@@ -71,10 +71,10 @@
             // 
             // txtmasodikAdat
             // 
-            txtmasodikAdat.Location = new Point(243, 57);
-            txtmasodikAdat.Name = "txtmasodikAdat";
-            txtmasodikAdat.Size = new Size(90, 32);
-            txtmasodikAdat.TabIndex = 0;
+            txtMasodikAdat.Location = new Point(243, 57);
+            txtMasodikAdat.Name = "txtmasodikAdat";
+            txtMasodikAdat.Size = new Size(90, 32);
+            txtMasodikAdat.TabIndex = 0;
             // 
             // label2
             // 
@@ -164,7 +164,7 @@
             Controls.Add(label2);
             Controls.Add(label4);
             Controls.Add(label1);
-            Controls.Add(txtmasodikAdat);
+            Controls.Add(txtMasodikAdat);
             Controls.Add(txtElsoAdat);
             Font = new Font("Segoe UI", 14F);
             Margin = new Padding(5, 5, 5, 5);
@@ -179,7 +179,7 @@
         private TextBox txtElsoAdat;
         private Label label1;
         private Button btnOsszeadas;
-        private TextBox txtmasodikAdat;
+        private TextBox txtMasodikAdat;
         private Label label2;
         private Label label3;
         private Button btnKivonas;
