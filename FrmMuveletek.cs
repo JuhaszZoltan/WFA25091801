@@ -1,10 +1,15 @@
-namespace WFA25091801
+namespace WFA25091801;
+
+public partial class FrmMuveletek : Form
 {
-    public partial class FrmMuveletek : Form
+    public FrmMuveletek()
     {
-        public FrmMuveletek()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
+        btnOsszeadas.Click += BtnOsszeadas_Click;
+    }
+
+    private void BtnOsszeadas_Click(object? sender, EventArgs e)
+    {
+        //int.Parse(txtElsoAdat.Text)
     }
 }
