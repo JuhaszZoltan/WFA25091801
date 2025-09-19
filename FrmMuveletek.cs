@@ -1,3 +1,5 @@
+using System.Collections;
+
 namespace WFA25091801;
 
 public partial class FrmMuveletek : Form
@@ -5,47 +7,64 @@ public partial class FrmMuveletek : Form
     public FrmMuveletek()
     {
         InitializeComponent();
-        btnOsszeadas.Click += BtnOsszeadas_Click;
-        btnKivonas.Click += BtnKivonas_Click;
-        btnSzorzas.Click += BtnSzorzas_Click;
-        btnOsztas.Click += BtnOsztas_Click;
+        btnKivonas.Click += MuveletButton_Click;
+        btnOsszeadas.Click += MuveletButton_Click;
+        btnOsztas.Click += MuveletButton_Click;
+        btnSzorzas.Click += MuveletButton_Click;
+
+        txtElsoAdat.TextChanged += InputTextBox_TextChanged;
+        txtMasodikAdat.TextChanged += InputTextBox_TextChanged;
     }
 
-    private void BtnOsztas_Click(object? sender, EventArgs e)
+    private void MuveletButton_Click(object? sender, EventArgs e)
     {
-        int x = int.Parse(txtElsoAdat.Text);
-        int y = int.Parse(txtMasodikAdat.Text);
-        lblEredmeny.Text = $"{x / y}";
-    }
+        FeherGombok();
 
-    private void BtnSzorzas_Click(object? sender, EventArgs e)
-    {
-        int x = int.Parse(txtElsoAdat.Text);
-        int y = int.Parse(txtMasodikAdat.Text);
-        lblEredmeny.Text = $"{x * y}";
-    }
+        (sender as Button).BackColor = Color.Gray;
 
-    private void BtnKivonas_Click(object? sender, EventArgs e)
-    {
-        int x = int.Parse(txtElsoAdat.Text);
-        int y = int.Parse(txtMasodikAdat.Text);
-        lblEredmeny.Text = $"{x - y}";
-    }
-
-    private void BtnOsszeadas_Click(object? sender, EventArgs e)
-    {
-        bool xp = int.TryParse(txtElsoAdat.Text, out int x);
-        bool yp = int.TryParse(txtMasodikAdat.Text, out int y);
-        
-        if (xp && yp)
+        try
         {
-            lblEredmeny.Text = $"{x + y}";
-        }
-        else
-        {
-            MessageBox.Show("hiba!");
-        }
+            int x = int.Parse(txtElsoAdat.Text);
+            int y = int.Parse(txtMasodikAdat.Text);
 
-        
+            if ((sender as Button).Name == "btnOsztas" && y == 0)
+                throw new DivideByZeroException();
+
+            lblEredmeny.Text = (sender as Button)?.Name switch
+            {
+                "btnOsszeadas" => $"{x + y}",
+                "btnOsztas" => $"{x / (float)y}",
+                "btnKivonas" => $"{x - y}",
+                "btnSzorzas" => $"{x * y}",
+                _ => throw new Exception("nincs ilyen gomb")
+            };
+        }
+        catch (Exception ex)
+        {
+            if (ex is FormatException)
+            {
+                MessageBox.Show("nem jó a bemeneti formátum...");
+            }
+            else if (ex is DivideByZeroException)
+            {
+                MessageBox.Show("nem lehet nullával osztani...");
+            }
+            else MessageBox.Show(ex.Message);
+        }
+    }
+
+    private void FeherGombok()
+    {
+        btnOsztas.BackColor = Color.White;
+        btnOsszeadas.BackColor = Color.White;
+        btnKivonas.BackColor = Color.White;
+        btnSzorzas.BackColor = Color.White;
+    }
+
+
+    private void InputTextBox_TextChanged(object? sender, EventArgs e)
+    {
+        FeherGombok();
+        lblEredmeny.Text = string.Empty;
     }
 }
